@@ -11,6 +11,9 @@ import SpriteKit
 import Foundation
 
 class PlayerNode: SKNode {
+    
+    let player = SKSpriteNode(imageNamed: "Circle.png")
+
     override init() {
         super.init()
         name = "Player"
@@ -22,18 +25,26 @@ class PlayerNode: SKNode {
     }
     
     private func initNodeGraph() {
-        let player = SKSpriteNode(imageNamed: "Circle.png")
+        
         player.name = "Player"
         player.zRotation = CGFloat(M_PI)
+        player.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "Circle.png"), size: player.size)
+        player.physicsBody?.collisionBitMask = 0
+        player.physicsBody?.dynamic = false
+        player.physicsBody?.linearDamping = 0.0
+        player.physicsBody?.allowsRotation = false
+        player.physicsBody?.affectedByGravity = true
         self.addChild(player)
     }
     
-    private func moveToward(location: CGPoint) {
-        removeActionForKey("movement")
-        let distance = pointDistance(position, location)
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let duration = NSTimeInterval(2 * distance/screenWidth)
-        
-        runAction(SKAction.moveTo(location, duration: duration), withKey:"movement")
+    internal func jump(location: CGPoint, right: Bool) {
+        player.physicsBody!.velocity = CGVectorMake(0,0)
+        right ?
+            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-3), CGFloat(15))) :
+            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(3), CGFloat(15)))
+    }
+    
+    internal func activate() {
+        player.physicsBody?.dynamic = true
     }
 }

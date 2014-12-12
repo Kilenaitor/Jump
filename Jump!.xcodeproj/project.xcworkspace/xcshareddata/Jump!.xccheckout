@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>52F2022D-84D8-4EA1-9B4C-68279F36B0F2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Jump!</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E2C77F88D7323029E15D3F9D6B0801322CDBC410</key>
+		<string>github.com:kyleminshall/Jump.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Jump!.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E2C77F88D7323029E15D3F9D6B0801322CDBC410</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:kyleminshall/Jump.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E2C77F88D7323029E15D3F9D6B0801322CDBC410</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E2C77F88D7323029E15D3F9D6B0801322CDBC410</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Jump</string>
+		</dict>
+	</array>
+</dict>
+</plist>

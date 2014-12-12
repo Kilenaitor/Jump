@@ -8,8 +8,9 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    private var firsttap = true
     private var finished = false
     private let playerNode: PlayerNode = PlayerNode()
     
@@ -20,6 +21,7 @@ class GameScene: SKScene {
     override init(size: CGSize) {
         
         super.init(size: size)
+        setupPhysics()
         
         backgroundColor = SKColor.whiteColor()
         
@@ -51,16 +53,29 @@ class GameScene: SKScene {
         
         for touch: AnyObject in touches {
             
-            let location = touch.locationInNode(self)
-            if location.y < CGRectGetHeight(frame) * 0.5 {
-                let target = CGPointMake(location.x, playerNode.position.y)
-                playerNode.moveToward(target)
+            if(firsttap) {
+                playerNode.activate();
+                firsttap = false
             }
-            
+          
+            let touchLoc = touch.locationInNode(self)
+            let location = CGPointMake(playerNode.position.x, playerNode.position.y)
+            var right = true
+            if(touchLoc.x > CGRectGetWidth(frame) * 0.5) {
+                right = false
+            }
+            playerNode.jump(location, right: right)
         }
     }
    
     override func update(currentTime: CFTimeInterval) {
-
+        
+    }
+    
+    
+    func setupPhysics() {
+        physicsWorld.gravity = CGVectorMake(0.0, -5);
+        physicsWorld.contactDelegate = self;
+        physicsWorld.speed = 1.0
     }
 }

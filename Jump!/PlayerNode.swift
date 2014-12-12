@@ -17,14 +17,14 @@ class PlayerNode: SKNode {
     override init() {
         super.init()
         name = "Player"
-        initNodeGraph()
+        initPhysicsBody()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder:aDecoder)
     }
     
-    private func initNodeGraph() {
+    private func initPhysicsBody() {
         
         player.name = "Player"
         player.zRotation = CGFloat(M_PI)
@@ -34,6 +34,8 @@ class PlayerNode: SKNode {
         player.physicsBody?.linearDamping = 0.0
         player.physicsBody?.allowsRotation = false
         player.physicsBody?.affectedByGravity = true
+        player.physicsBody?.categoryBitMask = PlayerCategory
+        player.physicsBody?.contactTestBitMask = FloorCategory
         self.addChild(player)
     }
     
@@ -46,5 +48,9 @@ class PlayerNode: SKNode {
     
     internal func activate() {
         player.physicsBody?.dynamic = true
+    }
+    
+    internal func wall() {
+        player.physicsBody!.velocity = CGVectorMake(0,0)
     }
 }

@@ -20,6 +20,7 @@ class WallNode: SKNode {
         floor.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(UIScreen.mainScreen().bounds.size.width, 20))
         floor.physicsBody?.dynamic = false
         floor.physicsBody?.categoryBitMask = FloorCategory
+        floor.physicsBody?.collisionBitMask = PlayerCategory
         self.addChild(floor)
     }
     

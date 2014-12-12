@@ -36,6 +36,9 @@ class PlayerNode: SKNode {
         player.physicsBody?.affectedByGravity = true
         player.physicsBody?.categoryBitMask = PlayerCategory
         player.physicsBody?.contactTestBitMask = FloorCategory
+        player.physicsBody?.collisionBitMask = SideCategory
+        player.physicsBody?.restitution = 0.0
+        player.physicsBody?.friction = 1.0
         self.addChild(player)
     }
     

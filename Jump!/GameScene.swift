@@ -14,6 +14,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var finished = false
     private let playerNode: PlayerNode = PlayerNode()
     private let floor: WallNode = WallNode()
+    private let left: SideNode = SideNode()
+    private let right: SideNode = SideNode()
     
     class func scene(size:CGSize) -> GameScene {
         return GameScene(size: size)
@@ -61,7 +63,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           
             let touchLoc = touch.locationInNode(self)
             let location = CGPointMake(playerNode.position.x, playerNode.position.y)
-            NSLog("\(location.x),\(location.y)")
             var right = true
             if(touchLoc.x > CGRectGetWidth(frame) * 0.5) {
                 right = false
@@ -71,7 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
    
     override func update(currentTime: NSTimeInterval) {
-        checkBounds()
+
     }
     
     
@@ -83,23 +84,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setupWalls() {
         floor.position = CGPointMake(CGRectGetMidX(frame), -20)
-        self.addChild(floor)
-
-    }
-    
-    func checkBounds() {
-        
+        left.position = CGPointMake(-20, CGRectGetMidY(frame))
+        right.position = CGPointMake(CGRectGetMaxX(frame) + 20, CGRectGetMidY(frame))
+        addChild(floor)
+        addChild(left)
+        addChild(right)
     }
     
     func gameOver() {
-        let label = SKLabelNode(fontNamed: "Courier")
-        label.text = "Game Over"
-        label.fontColor = SKColor.redColor()
-        label.fontSize = 32
+        let nextLevel = StartScene(size: frame.size)
+        view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
         
-        addChild(label)
-        SKAction.waitForDuration(3.0)
-        let nextLevel = GameScene(size: frame.size)
-        view!.presentScene(nextLevel, transition:SKTransition.crossFadeWithDuration(2.0))
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask
+        {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        }
+        else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        if firstBody.categoryBitMask == FloorCategory || secondBody.categoryBitMask == FloorCategory {
+            gameOver()
+        }
     }
 }

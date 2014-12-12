@@ -20,6 +20,8 @@
 		43EE4EC91A3AC282004A0188 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EE4EC81A3AC282004A0188 /* Geometry.swift */; };
 		43EE4ECB1A3AFE43004A0188 /* WallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EE4ECA1A3AFE43004A0188 /* WallNode.swift */; };
 		43EE4ECF1A3B025E004A0188 /* PhysicsCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EE4ECE1A3B025E004A0188 /* PhysicsCategories.swift */; };
+		43EE4ED31A3B6F95004A0188 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EE4ED21A3B6F95004A0188 /* StartScene.swift */; };
+		43EE4ED51A3B7BE4004A0188 /* SideNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EE4ED41A3B7BE4004A0188 /* SideNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		43EE4EC81A3AC282004A0188 /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 		43EE4ECA1A3AFE43004A0188 /* WallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallNode.swift; sourceTree = "<group>"; };
 		43EE4ECE1A3B025E004A0188 /* PhysicsCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhysicsCategories.swift; path = ../PhysicsCategories.swift; sourceTree = "<group>"; };
+		43EE4ED21A3B6F95004A0188 /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartScene.swift; path = ../StartScene.swift; sourceTree = "<group>"; };
+		43EE4ED41A3B7BE4004A0188 /* SideNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 				43B9A18A1A3A85050044B391 /* AppDelegate.swift */,
 				43B9A18C1A3A85050044B391 /* GameScene.sks */,
 				43B9A18E1A3A85050044B391 /* GameScene.swift */,
+				43EE4ED21A3B6F95004A0188 /* StartScene.swift */,
+				43EE4ED41A3B7BE4004A0188 /* SideNode.swift */,
 				43EE4ECA1A3AFE43004A0188 /* WallNode.swift */,
 				430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */,
 				43EE4EC81A3AC282004A0188 /* Geometry.swift */,
@@ -242,7 +248,9 @@
 				43B9A18B1A3A85050044B391 /* AppDelegate.swift in Sources */,
 				43EE4ECF1A3B025E004A0188 /* PhysicsCategories.swift in Sources */,
 				43EE4EC91A3AC282004A0188 /* Geometry.swift in Sources */,
+				43EE4ED51A3B7BE4004A0188 /* SideNode.swift in Sources */,
 				43EE4ECB1A3AFE43004A0188 /* WallNode.swift in Sources */,
+				43EE4ED31A3B6F95004A0188 /* StartScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

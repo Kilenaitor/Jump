@@ -9,37 +9,58 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+    
+    private var finished = false
+    private let playerNode: PlayerNode = PlayerNode()
+    
+    class func scene(size:CGSize) -> GameScene {
+        return GameScene(size: size)
+    }
+    
+    override init(size: CGSize) {
         
-        self.addChild(myLabel)
+        super.init(size: size)
+        
+        backgroundColor = SKColor.whiteColor()
+        
+        let level = SKLabelNode(fontNamed: "Courier")
+        level.fontColor = SKColor.blackColor()
+        level.fontSize = 26
+        level.text = "Easy"
+        level.verticalAlignmentMode = .Top
+        level.horizontalAlignmentMode = .Right
+        level.position = CGPointMake(frame.size.width, frame.size.height)
+        
+        addChild(level)
+        
+        playerNode.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame) * 0.75)
+        playerNode.setScale(0.1)
+        
+        addChild(playerNode)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func didMoveToView(view: SKView) {
+
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        /* Called when a touch begins */
         
         for touch: AnyObject in touches {
+            
             let location = touch.locationInNode(self)
+            if location.y < CGRectGetHeight(frame) * 0.5 {
+                let target = CGPointMake(location.x, playerNode.position.y)
+                playerNode.moveToward(target)
+            }
             
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
         }
     }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+
     }
 }

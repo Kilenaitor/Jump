@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		430BE5491A3A9A0B006CDF38 /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */; };
+		430BE54B1A3A9C23006CDF38 /* Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 430BE54A1A3A9C23006CDF38 /* Circle.png */; };
 		43B9A18B1A3A85050044B391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9A18A1A3A85050044B391 /* AppDelegate.swift */; };
 		43B9A18D1A3A85050044B391 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 43B9A18C1A3A85050044B391 /* GameScene.sks */; };
 		43B9A18F1A3A85050044B391 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9A18E1A3A85050044B391 /* GameScene.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
+		430BE54A1A3A9C23006CDF38 /* Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle.png; sourceTree = SOURCE_ROOT; };
 		43B9A1851A3A85050044B391 /* Jump!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jump!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B9A1891A3A85050044B391 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43B9A18A1A3A85050044B391 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 				43B9A18A1A3A85050044B391 /* AppDelegate.swift */,
 				43B9A18C1A3A85050044B391 /* GameScene.sks */,
 				43B9A18E1A3A85050044B391 /* GameScene.swift */,
+				430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */,
+				430BE54A1A3A9C23006CDF38 /* Circle.png */,
 				43B9A1901A3A85050044B391 /* GameViewController.swift */,
 				43B9A1921A3A85050044B391 /* Main.storyboard */,
 				43B9A1951A3A85050044B391 /* Images.xcassets */,
@@ -167,6 +173,7 @@
 				TargetAttributes = {
 					43B9A1841A3A85050044B391 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 8V7Q5UQ64W;
 					};
 					43B9A19D1A3A85050044B391 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -199,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43B9A1991A3A85050044B391 /* LaunchScreen.xib in Resources */,
+				430BE54B1A3A9C23006CDF38 /* Circle.png in Resources */,
 				43B9A1961A3A85050044B391 /* Images.xcassets in Resources */,
 				43B9A18D1A3A85050044B391 /* GameScene.sks in Resources */,
 				43B9A1941A3A85050044B391 /* Main.storyboard in Resources */,
@@ -221,6 +229,7 @@
 			files = (
 				43B9A18F1A3A85050044B391 /* GameScene.swift in Sources */,
 				43B9A1911A3A85050044B391 /* GameViewController.swift in Sources */,
+				430BE5491A3A9A0B006CDF38 /* PlayerNode.swift in Sources */,
 				43B9A18B1A3A85050044B391 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,9 +355,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Jump!/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -356,9 +368,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Jump!/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -415,6 +430,7 @@
 				43B9A1AA1A3A85050044B391 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		43B9A1AB1A3A85050044B391 /* Build configuration list for PBXNativeTarget "Jump!Tests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +439,7 @@
 				43B9A1AD1A3A85050044B391 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

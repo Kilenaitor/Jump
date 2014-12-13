@@ -13,6 +13,7 @@ import Foundation
 class PlayerNode: SKNode {
     
     let player = SKSpriteNode(imageNamed: "Circle.png")
+    private var height :CGFloat = 0
 
     override init() {
         super.init()
@@ -29,14 +30,13 @@ class PlayerNode: SKNode {
         player.name = "Player"
         player.zRotation = CGFloat(M_PI)
         player.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "Circle.png"), size: player.size)
-        player.physicsBody?.collisionBitMask = 0
         player.physicsBody?.dynamic = false
         player.physicsBody?.linearDamping = 0.0
         player.physicsBody?.allowsRotation = false
         player.physicsBody?.affectedByGravity = true
         player.physicsBody?.categoryBitMask = PlayerCategory
-        player.physicsBody?.contactTestBitMask = FloorCategory
-        player.physicsBody?.collisionBitMask = SideCategory
+        player.physicsBody?.contactTestBitMask = FloorCategory | MidCategory
+        player.physicsBody?.collisionBitMask = SideCategory | MidCategory
         player.physicsBody?.restitution = 0.0
         player.physicsBody?.friction = 1.0
         self.addChild(player)
@@ -55,5 +55,14 @@ class PlayerNode: SKNode {
     
     internal func wall() {
         player.physicsBody!.velocity = CGVectorMake(0,0)
+    }
+    
+    internal func mid() {
+        let old = player.physicsBody!.velocity
+        player.physicsBody!.velocity = CGVectorMake(old.dx, 0)
+    }
+    
+    internal func getHeight() -> CGFloat {
+        return player.position.y*0.1 + UIScreen.mainScreen().bounds.height/2*0.75
     }
 }

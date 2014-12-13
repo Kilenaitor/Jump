@@ -12,10 +12,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var firsttap = true
     private var finished = false
+    private var scoreNum = 0
     private let playerNode: PlayerNode = PlayerNode()
     private let floor: WallNode = WallNode()
     private let left: SideNode = SideNode()
     private let right: SideNode = SideNode()
+    private let mid: Mid = Mid()
+    private let pair = SKNode()
     
     class func scene(size:CGSize) -> GameScene {
         return GameScene(size: size)
@@ -26,18 +29,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         super.init(size: size)
         setupPhysics()
         setupWalls()
+        setupObstacles()
         
         backgroundColor = SKColor.whiteColor()
         
-        let level = SKLabelNode(fontNamed: "Courier")
-        level.fontColor = SKColor.blackColor()
-        level.fontSize = 26
-        level.text = "Easy"
-        level.verticalAlignmentMode = .Top
-        level.horizontalAlignmentMode = .Right
-        level.position = CGPointMake(frame.size.width, frame.size.height)
+        let score = SKLabelNode(fontNamed: "Helvetica")
+        score.fontColor = SKColor.blackColor()
+        score.fontSize = 32
+        score.text = "\(scoreNum)"
+        score.verticalAlignmentMode = .Top
+        score.horizontalAlignmentMode = .Right
+        score.position = CGPointMake(frame.size.width - 5, frame.size.height - 5)
         
-        addChild(level)
+        addChild(score)
         
         playerNode.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame) * 0.75)
         playerNode.setScale(0.1)
@@ -72,7 +76,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
    
     override func update(currentTime: NSTimeInterval) {
-
+        checkHeight()
+        NSLog("\(pair.position)")
     }
     
     
@@ -83,16 +88,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupWalls() {
-        floor.position = CGPointMake(CGRectGetMidX(frame), -20)
-        left.position = CGPointMake(-20, CGRectGetMidY(frame))
-        right.position = CGPointMake(CGRectGetMaxX(frame) + 20, CGRectGetMidY(frame))
+        floor.position = CGPointMake(CGRectGetMidX(frame), -11)
+        left.position = CGPointMake(-11, CGRectGetMidY(frame))
+        right.position = CGPointMake(CGRectGetMaxX(frame) + 11, CGRectGetMidY(frame))
         addChild(floor)
         addChild(left)
         addChild(right)
     }
     
+    func setupObstacles() {
+        pair.position = CGPointMake(0, frame.size.height - 100)
+        
+        let y = arc4random() % UInt32((frame.size.width / 3))
+        
+        let side1 = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(frame.size.width, 20))
+        side1.position = CGPointMake(0, CGFloat(y))
+        side1.physicsBody = SKPhysicsBody(rectangleOfSize: side1.size)
+        side1.physicsBody?.dynamic = false
+        pair.addChild(side1)
+        
+        let side2 = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(frame.size.width, 20))
+        side2.position = CGPointMake(0, CGFloat(y) + side1.size.width + 100)
+        side2.physicsBody = SKPhysicsBody(rectangleOfSize: side2.size)
+        side2.physicsBody?.dynamic = false
+        pair.addChild(side2)
+    }
+    
     func gameOver() {
-        let nextLevel = StartScene(size: frame.size)
+        let nextLevel = GameOver(size: frame.size, scoreNum: scoreNum)
         view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
     }
     
@@ -114,5 +137,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if firstBody.categoryBitMask == FloorCategory || secondBody.categoryBitMask == FloorCategory {
             gameOver()
         }
+        
+        if firstBody.categoryBitMask == MidCategory || secondBody.categoryBitMask == MidCategory {
+            NSLog("Adjust")
+        }
+    }
+    
+    func checkHeight() {
+        if playerNode.getHeight() >  CGRectGetMidY(frame) {
+            playerNode.mid()
+            moveScene()
+        }
+        
+    }
+    
+    func moveScene() {
+        let move = SKAction.repeatAction(SKAction.moveByX(0, y: -1, duration: 0.02), count: 1)
+        pair.runAction(move)
     }
 }

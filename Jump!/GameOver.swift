@@ -20,9 +20,20 @@ class GameOver: SKScene {
         
         backgroundColor = SKColor.whiteColor()
         
-        let over = SKLabelNode(fontNamed: "Helvetica")
+        var prevHigh = 0
+        if(NSUserDefaults.standardUserDefaults().integerForKey("HighScore") != 0) {
+            prevHigh = NSUserDefaults.standardUserDefaults().integerForKey("HighScore")
+        }
+        
+        if scoreNum > prevHigh {
+            NSUserDefaults.standardUserDefaults().setInteger(scoreNum, forKey:"HighScore")
+            prevHigh = scoreNum
+        }
+        
+        
+        let over = SKLabelNode(fontNamed: "Helvetica-Bold")
         over.fontColor = SKColor.redColor()
-        over.fontSize = 40
+        over.fontSize = 45
         over.text = "Game Over"
         over.position = CGPointMake(frame.size.width/2, frame.size.height*2/3)
         
@@ -36,19 +47,29 @@ class GameOver: SKScene {
         
         addChild(score)
         
+        let highscore = SKLabelNode(fontNamed: "Helvetica")
+        highscore.fontColor = SKColor.blackColor()
+        highscore.fontSize = 32
+        highscore.text = "High Score: \(prevHigh)"
+        highscore.position = CGPointMake(frame.size.width/2, frame.size.height*2/3 - 100)
+        
+        addChild(highscore)
+        
         let play = playButton()
-        play.position = CGPointMake(frame.size.width/2, frame.size.height/2)
+        play.position = CGPointMake(frame.size.width/2, frame.size.height/2 - 50)
         play.zPosition = 1
+        play.name = "play"
         
         let text = SKLabelNode(fontNamed: "Helvetica")
         text.fontSize = 32
         text.fontColor = SKColor.whiteColor()
-        text.position = CGPointMake(frame.size.width/2, frame.size.height/2)
+        text.position = CGPointMake(frame.size.width/2, frame.size.height/2 - 50)
         text.zPosition = 2
         text.text = "Play Again"
+        text.name = "play"
         
         let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
-        button.position = CGPointMake(frame.size.width/2, frame.size.height/2 - 75)
+        button.position = CGPointMake(frame.size.width/2, frame.size.height/2 - 125)
         button.fillColor = SKColor.blueColor()
         button.name = "home"
         
@@ -78,14 +99,14 @@ class GameOver: SKScene {
         for touch: AnyObject in touches {
             
             let location = touch.locationInNode(self)
-            if CGRectContainsPoint(CGRectMake(frame.size.width/2, frame.size.height/2, 200, 50), location) {
-                let nextLevel = GameScene(size: frame.size)
-                view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
-            }
             
             let node = nodeAtPoint(location)
             if node.name == "home" {
                 let nextLevel = StartScene(size: frame.size)
+                view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
+            }
+            if node.name == "play" {
+                let nextLevel = GameScene(size: frame.size)
                 view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
             }
         }

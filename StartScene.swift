@@ -31,6 +31,7 @@ class StartScene: SKScene {
         let play = playButton()
         play.position = CGPointMake(frame.size.width/2, frame.size.height/2)
         play.zPosition = 1
+        play.name = "play"
         
         let text = SKLabelNode(fontNamed: "Helvetica")
         text.fontSize = 32
@@ -38,6 +39,7 @@ class StartScene: SKScene {
         text.position = CGPointMake(frame.size.width/2, frame.size.height/2)
         text.zPosition = 2
         text.text = "Play"
+        text.name = "play"
         
         addChild(play)
         addChild(text)
@@ -55,7 +57,8 @@ class StartScene: SKScene {
         for touch: AnyObject in touches {
             
             let location = touch.locationInNode(self)
-            if CGRectContainsPoint(CGRectMake(frame.size.width/2, frame.size.height/2, 200, 50), location) {
+            let node = nodeAtPoint(location)
+            if node.name == "play" {
                 let nextLevel = GameScene(size: frame.size)
                 view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
             }
@@ -73,7 +76,7 @@ class StartScene: SKScene {
             
             let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
             button.fillColor = SKColor.greenColor()
-            button.name = "start"
+            button.name = "play"
             
             addChild(button)
         }

@@ -12,4 +12,3 @@ let PlayerCategory: UInt32 = 1 << 1
 let FloorCategory: UInt32 = 1 << 2
 let SideCategory: UInt32 = 1 << 3
 let ObstacleCategory: UInt32 = 1 << 4
-let MidCategory: UInt32 = 1 << 5

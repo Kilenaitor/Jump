@@ -21,6 +21,8 @@ class WallNode: SKNode {
         floor.physicsBody?.dynamic = false
         floor.physicsBody?.categoryBitMask = FloorCategory
         floor.physicsBody?.collisionBitMask = PlayerCategory
+        floor.physicsBody?.mass = 100
+        floor.physicsBody?.restitution = 1.0
         self.addChild(floor)
     }
     

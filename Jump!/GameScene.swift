@@ -10,6 +10,11 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    private var world = SKNode()
+    private var startHeight:CGFloat = 0
+    private var newHeight:CGFloat = 0
+    private var viewNode = SKNode()
+    private var height: CGFloat = 0
     private var firsttap = true
     private var finished = false
     private var scoreNum = 0
@@ -17,7 +22,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let floor: WallNode = WallNode()
     private let left: SideNode = SideNode()
     private let right: SideNode = SideNode()
-    private let mid: Mid = Mid()
     private let pair = SKNode()
     
     class func scene(size:CGSize) -> GameScene {
@@ -27,6 +31,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override init(size: CGSize) {
         
         super.init(size: size)
+        addChild(world)
+        
         setupPhysics()
         setupWalls()
         setupObstacles()
@@ -46,7 +52,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerNode.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame) * 0.75)
         playerNode.setScale(0.1)
         
-        addChild(playerNode)
+        world.addChild(playerNode)
+        world.addChild(viewNode)
+        newHeight = CGRectGetMidY(frame)
+        startHeight = CGRectGetMidY(frame)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -76,8 +85,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
    
     override func update(currentTime: NSTimeInterval) {
-        checkHeight()
-        NSLog("\(pair.position)")
+        if playerNode.getHeight() > world.frame.height/2 && -playerNode.getHeight() + newHeight < world.position.y {
+            world.position = CGPointMake(world.position.x, -playerNode.getHeight() + newHeight)
+        }
     }
     
     
@@ -101,17 +111,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let y = arc4random() % UInt32((frame.size.width / 3))
         
-        let side1 = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(frame.size.width, 20))
+        let side1 = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(frame.size.width, 40))
         side1.position = CGPointMake(0, CGFloat(y))
         side1.physicsBody = SKPhysicsBody(rectangleOfSize: side1.size)
+        side1.physicsBody?.categoryBitMask = ObstacleCategory
         side1.physicsBody?.dynamic = false
         pair.addChild(side1)
         
-        let side2 = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(frame.size.width, 20))
-        side2.position = CGPointMake(0, CGFloat(y) + side1.size.width + 100)
+        let side2 = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(frame.size.width, 40))
+        side2.position = CGPointMake(side1.size.width + 100, CGFloat(y))
         side2.physicsBody = SKPhysicsBody(rectangleOfSize: side2.size)
         side2.physicsBody?.dynamic = false
+        side2.physicsBody?.categoryBitMask = ObstacleCategory
         pair.addChild(side2)
+        viewNode.addChild(pair)
     }
     
     func gameOver() {
@@ -138,21 +151,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameOver()
         }
         
-        if firstBody.categoryBitMask == MidCategory || secondBody.categoryBitMask == MidCategory {
-            NSLog("Adjust")
-        }
-    }
-    
-    func checkHeight() {
-        if playerNode.getHeight() >  CGRectGetMidY(frame) {
-            playerNode.mid()
-            moveScene()
+        if firstBody.categoryBitMask == ObstacleCategory || secondBody.categoryBitMask == ObstacleCategory {
+            gameOver()
         }
         
-    }
-    
-    func moveScene() {
-        let move = SKAction.repeatAction(SKAction.moveByX(0, y: -1, duration: 0.02), count: 1)
-        pair.runAction(move)
+        if firstBody.categoryBitMask == SideCategory || secondBody.categoryBitMask == SideCategory {
+            playerNode.wall()
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+

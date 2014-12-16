@@ -1,8 +1,8 @@
 //
-//  GameScene.swift
+//  MedGameScene.swift
 //  Jump!
 //
-//  Created by Kyle Minshall on 12/11/14.
+//  Created by Kyle Minshall on 12/15/14.
 //  Copyright (c) 2014 tmg. All rights reserved.
 //
 
@@ -19,13 +19,14 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
     private var firsttap = true
     private var finished = false
     private var scoreNum = 0
-    private let playerNode: PlayerNode = PlayerNode(diff: 2)
+    private let playerNode: PlayerNode = PlayerNode(diff: 1)
     private let floor: WallNode = WallNode()
     private let left: SideNode = SideNode()
     private let right: SideNode = SideNode()
     private let pair = SKNode()
     private var oldy: CGFloat = 0
     private let score = SKLabelNode(fontNamed: "Helvetica")
+    private var num = 0
     
     class func scene(size:CGSize) -> HardGameScene {
         return HardGameScene(size: size)
@@ -57,7 +58,7 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
         world.addChild(playerNode)
         newHeight = CGRectGetMidY(frame)
         startHeight = CGRectGetMidY(frame)
-        oldy = CGRectGetMidY(frame) * 0.75 + 75
+        oldy = CGRectGetMidY(frame) * 0.75 - 25
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -91,11 +92,18 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
         if(oldy - playerNode.getHeight() < 500) {
             addObstacles()
         }
+        
+        for children in viewNode.children {
+            let z = scoreNum - 3
+            if(children as SKNode).name == "pair\(z)" {
+                children.removeFromParent()
+            }
+        }
     }
     
     
     func setupPhysics() {
-        physicsWorld.gravity = CGVectorMake(0.0, -6);
+        physicsWorld.gravity = CGVectorMake(0.0, -9.8);
         physicsWorld.contactDelegate = self;
         physicsWorld.speed = 1.0
     }
@@ -111,7 +119,7 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver() {
         let nextLevel = GameOver(size: frame.size, scoreNum: scoreNum, level: 2)
-        view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
+        view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(1))
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -140,8 +148,8 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
     
     func addObstacles() {
         let pipePair = SKNode()
-        pipePair.position = CGPointMake(0, oldy + 275)
-        oldy += 275
+        pipePair.position = CGPointMake(0, oldy + 400)
+        oldy += 400
         pipePair.zPosition = -10
         
         let y = arc4random() % UInt32((frame.size.width / 2))
@@ -155,11 +163,26 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
         pipePair.addChild(side1)
         
         let side2 = SKSpriteNode(color: SKColor.blueColor(), size: CGSizeMake(frame.size.width, 40))
-        side2.position = CGPointMake(side1.position.x + side1.size.width + 110, 0)
+        side2.position = CGPointMake(side1.position.x + side1.size.width + 130, 0)
         side2.physicsBody = SKPhysicsBody(rectangleOfSize: side2.size)
         side2.physicsBody?.dynamic = false
         side2.physicsBody?.categoryBitMask = ObstacleCategory
         pipePair.addChild(side2)
+        
+        let block2 = SKSpriteNode(color: SKColor.blueColor(), size: CGSizeMake(30,30))
+        block2.position = CGPointMake(side1.position.x + side1.size.width/2 + 65, side1.position.y + 220)
+        block2.physicsBody = SKPhysicsBody(rectangleOfSize: block2.size)
+        block2.physicsBody?.dynamic = false
+        block2.physicsBody?.categoryBitMask = ObstacleCategory
+
+        let pos = block2.position.x - 75
+        let a = SKAction.moveToX(pos < frame.size.width/2 ? pos+150 : pos-150, duration: NSTimeInterval(1))
+        let b = SKAction.moveToX(pos, duration: NSTimeInterval(1))
+        let sequence = SKAction.sequence([a,b])
+        block2.runAction(SKAction.repeatActionForever(sequence))
+        
+        pipePair.addChild(block2)
+        
         
         let contact = SKNode()
         contact.position = CGPointMake(0, side1.size.height)
@@ -171,13 +194,3 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
         viewNode.addChild(pipePair)
     }
 }
-
-
-
-
-
-
-
-
-
-

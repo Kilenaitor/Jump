@@ -94,7 +94,7 @@ class MedGameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         for children in viewNode.children {
-            let z = scoreNum - 2
+            let z = scoreNum - 3
             if(children as SKNode).name == "pair\(z)" {
                 children.removeFromParent()
             }

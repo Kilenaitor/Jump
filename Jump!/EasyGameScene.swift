@@ -26,6 +26,7 @@ class EasyGameScene: SKScene, SKPhysicsContactDelegate {
     private let pair = SKNode()
     private var oldy: CGFloat = 0
     private let score = SKLabelNode(fontNamed: "Helvetica")
+    private var num = 0
     
     class func scene(size:CGSize) -> EasyGameScene {
         return EasyGameScene(size: size)
@@ -91,6 +92,13 @@ class EasyGameScene: SKScene, SKPhysicsContactDelegate {
         if(oldy - playerNode.getHeight() < 500) {
             addObstacles()
         }
+        
+        for children in viewNode.children {
+            let z = scoreNum - 3
+            if(children as SKNode).name == "pair\(z)" {
+                children.removeFromParent()
+            }
+        }
     }
     
     
@@ -142,6 +150,7 @@ class EasyGameScene: SKScene, SKPhysicsContactDelegate {
         let pipePair = SKNode()
         pipePair.position = CGPointMake(0, oldy + 275)
         oldy += 275
+        pipePair.name = "pair\(num++)"
         pipePair.zPosition = -10
         
         let y = arc4random() % UInt32((frame.size.width / 2))

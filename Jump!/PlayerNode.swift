@@ -14,10 +14,12 @@ class PlayerNode: SKNode {
     
     let player = SKSpriteNode(imageNamed: "Circle.png")
     private var height :CGFloat = 0
+    private var dif = 0
 
-    override init() {
+    init(diff: Int) {
         super.init()
         name = "Player"
+        dif = diff
         initPhysicsBody()
     }
     
@@ -45,9 +47,22 @@ class PlayerNode: SKNode {
     
     internal func jump(location: CGPoint, right: Bool) {
         player.physicsBody!.velocity = CGVectorMake(0,0)
-        right ?
+        
+        switch dif {
+            
+        case 0: right ?
+            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-3), CGFloat(18))) :
+            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(3), CGFloat(18))); break
+        case 1: right ?
+            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-4), CGFloat(26))) :
+            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(4), CGFloat(26))); break
+        case 2: right ?
+            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-3), CGFloat(18))) :
+            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(3), CGFloat(18))); break
+        default: right ?
             player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-3), CGFloat(18))) :
             player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(3), CGFloat(18)))
+        }
     }
     
     internal func activate() {

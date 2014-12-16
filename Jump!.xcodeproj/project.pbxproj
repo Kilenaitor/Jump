@@ -10,9 +10,12 @@
 		430BE5491A3A9A0B006CDF38 /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */; };
 		430BE54B1A3A9C23006CDF38 /* Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 430BE54A1A3A9C23006CDF38 /* Circle.png */; };
 		430BE54D1A3BAD8B006CDF38 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430BE54C1A3BAD8B006CDF38 /* GameOver.swift */; };
+		437C10BE1A3EDDCB003608C9 /* SelectScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437C10BD1A3EDDCB003608C9 /* SelectScene.swift */; };
+		437C10C01A3EE55B003608C9 /* MedGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437C10BF1A3EE55B003608C9 /* MedGameScene.swift */; };
+		437C10C21A3EE57F003608C9 /* HardGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437C10C11A3EE57F003608C9 /* HardGameScene.swift */; };
 		43B9A18B1A3A85050044B391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9A18A1A3A85050044B391 /* AppDelegate.swift */; };
 		43B9A18D1A3A85050044B391 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 43B9A18C1A3A85050044B391 /* GameScene.sks */; };
-		43B9A18F1A3A85050044B391 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9A18E1A3A85050044B391 /* GameScene.swift */; };
+		43B9A18F1A3A85050044B391 /* EasyGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9A18E1A3A85050044B391 /* EasyGameScene.swift */; };
 		43B9A1911A3A85050044B391 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9A1901A3A85050044B391 /* GameViewController.swift */; };
 		43B9A1941A3A85050044B391 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43B9A1921A3A85050044B391 /* Main.storyboard */; };
 		43B9A1961A3A85050044B391 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43B9A1951A3A85050044B391 /* Images.xcassets */; };
@@ -39,11 +42,14 @@
 		430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
 		430BE54A1A3A9C23006CDF38 /* Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle.png; sourceTree = SOURCE_ROOT; };
 		430BE54C1A3BAD8B006CDF38 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
+		437C10BD1A3EDDCB003608C9 /* SelectScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectScene.swift; sourceTree = "<group>"; };
+		437C10BF1A3EE55B003608C9 /* MedGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedGameScene.swift; sourceTree = "<group>"; };
+		437C10C11A3EE57F003608C9 /* HardGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HardGameScene.swift; sourceTree = "<group>"; };
 		43B9A1851A3A85050044B391 /* Jump!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jump!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B9A1891A3A85050044B391 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43B9A18A1A3A85050044B391 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43B9A18C1A3A85050044B391 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		43B9A18E1A3A85050044B391 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		43B9A18E1A3A85050044B391 /* EasyGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyGameScene.swift; sourceTree = "<group>"; };
 		43B9A1901A3A85050044B391 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		43B9A1931A3A85050044B391 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43B9A1951A3A85050044B391 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -99,7 +105,10 @@
 			children = (
 				43B9A18A1A3A85050044B391 /* AppDelegate.swift */,
 				43B9A18C1A3A85050044B391 /* GameScene.sks */,
-				43B9A18E1A3A85050044B391 /* GameScene.swift */,
+				43B9A18E1A3A85050044B391 /* EasyGameScene.swift */,
+				437C10BF1A3EE55B003608C9 /* MedGameScene.swift */,
+				437C10C11A3EE57F003608C9 /* HardGameScene.swift */,
+				437C10BD1A3EDDCB003608C9 /* SelectScene.swift */,
 				43EE4ED21A3B6F95004A0188 /* StartScene.swift */,
 				43EE4ED41A3B7BE4004A0188 /* SideNode.swift */,
 				43EE4ECA1A3AFE43004A0188 /* WallNode.swift */,
@@ -245,16 +254,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43B9A18F1A3A85050044B391 /* GameScene.swift in Sources */,
+				437C10C21A3EE57F003608C9 /* HardGameScene.swift in Sources */,
+				43B9A18F1A3A85050044B391 /* EasyGameScene.swift in Sources */,
 				43B9A1911A3A85050044B391 /* GameViewController.swift in Sources */,
 				430BE5491A3A9A0B006CDF38 /* PlayerNode.swift in Sources */,
 				430BE54D1A3BAD8B006CDF38 /* GameOver.swift in Sources */,
+				437C10BE1A3EDDCB003608C9 /* SelectScene.swift in Sources */,
 				43B9A18B1A3A85050044B391 /* AppDelegate.swift in Sources */,
 				43EE4ECF1A3B025E004A0188 /* PhysicsCategories.swift in Sources */,
 				43EE4EC91A3AC282004A0188 /* Geometry.swift in Sources */,
 				43EE4ED51A3B7BE4004A0188 /* SideNode.swift in Sources */,
 				43EE4ECB1A3AFE43004A0188 /* WallNode.swift in Sources */,
 				43EE4ED31A3B6F95004A0188 /* StartScene.swift in Sources */,
+				437C10C01A3EE55B003608C9 /* MedGameScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

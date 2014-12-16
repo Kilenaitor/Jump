@@ -10,23 +10,27 @@ import SpriteKit
 
 class GameOver: SKScene {
     
+    var diff = 0
+    
     class func scene(size:CGSize) -> StartScene {
         return StartScene(size: size)
     }
     
-    init(size: CGSize, scoreNum: Int) {
+    init(size: CGSize, scoreNum: Int, level: Int) {
         
         super.init(size: size)
+        
+        diff = level
         
         backgroundColor = SKColor.whiteColor()
         
         var prevHigh = 0
-        if(NSUserDefaults.standardUserDefaults().integerForKey("HighScore") != 0) {
-            prevHigh = NSUserDefaults.standardUserDefaults().integerForKey("HighScore")
+        if(NSUserDefaults.standardUserDefaults().integerForKey("HighScore\(level)") != 0) {
+            prevHigh = NSUserDefaults.standardUserDefaults().integerForKey("HighScore\(level)")
         }
         
         if scoreNum > prevHigh {
-            NSUserDefaults.standardUserDefaults().setInteger(scoreNum, forKey:"HighScore")
+            NSUserDefaults.standardUserDefaults().setInteger(scoreNum, forKey:"HighScore\(level)")
             prevHigh = scoreNum
         }
         
@@ -106,8 +110,21 @@ class GameOver: SKScene {
                 view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
             }
             if node.name == "play" {
-                let nextLevel = GameScene(size: frame.size)
-                view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
+                switch diff {
+                    
+                case 0:
+                    let nextLevel = EasyGameScene(size: frame.size);
+                    view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5)); break
+                case 1:
+                    let nextLevel = MedGameScene(size: frame.size);
+                    view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5)); break
+                case 2:
+                    let nextLevel = HardGameScene(size: frame.size);
+                    view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5)); break
+                default:
+                    let nextLevel = EasyGameScene(size: frame.size);
+                    view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5)); break
+                }
             }
         }
     }

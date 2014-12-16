@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import iAd
 
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
@@ -16,7 +17,7 @@ extension SKNode {
             var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as GameScene
+            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as StartScene
             archiver.finishDecoding()
             return scene
         } else {
@@ -25,7 +26,17 @@ extension SKNode {
     }
 }
 
-class GameViewController: UIViewController {
+var adBannerView: ADBannerView!
+
+class GameViewController: UIViewController, ADBannerViewDelegate {
+    
+    
+    func loadAds() {
+        adBannerView = ADBannerView(frame: CGRectZero)
+        adBannerView.hidden = true
+        adBannerView.delegate = self
+        view.addSubview(adBannerView)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +54,8 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             skView.presentScene(scene)
+        
+            loadAds()
     }
 
     override func shouldAutorotate() -> Bool {
@@ -59,10 +72,18 @@ class GameViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func bannerViewDidLoadAd(banner: ADBannerView!) {
+        adBannerView.center = CGPoint(x: adBannerView.center.x, y: view.bounds.size.height - adBannerView.frame.size.height/2)
+        adBannerView.hidden = false
+    }
+    
+    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+        adBannerView.center = CGPoint(x: adBannerView.center.x, y: -100)
     }
 }

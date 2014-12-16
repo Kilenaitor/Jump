@@ -59,7 +59,7 @@ class StartScene: SKScene {
             let location = touch.locationInNode(self)
             let node = nodeAtPoint(location)
             if node.name == "play" {
-                let nextLevel = GameScene(size: frame.size)
+                let nextLevel = SelectScene(size: frame.size)
                 view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
             }
         }

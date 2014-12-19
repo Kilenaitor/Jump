@@ -20,9 +20,9 @@ class StartScene: SKScene {
         
         backgroundColor = SKColor.whiteColor()
         
-        let over = SKLabelNode(fontNamed: "Helvetica")
+        let over = SKLabelNode(fontNamed: "Helvetica-Bold")
         over.fontColor = SKColor.blackColor()
-        over.fontSize = 40
+        over.fontSize = 52
         over.text = "Jump!"
         over.position = CGPointMake(frame.size.width/2, frame.size.height*2/3)
         
@@ -34,7 +34,7 @@ class StartScene: SKScene {
         play.name = "play"
         
         let text = SKLabelNode(fontNamed: "Helvetica")
-        text.fontSize = 32
+        text.fontSize = 34
         text.fontColor = SKColor.whiteColor()
         text.position = CGPointMake(frame.size.width/2, frame.size.height/2)
         text.zPosition = 2
@@ -75,7 +75,7 @@ class StartScene: SKScene {
             super.init()
             
             let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
-            button.fillColor = SKColor.greenColor()
+            button.fillColor = SKColor(red: 0.25, green: 0.99, blue: 0.27, alpha:1.0)
             button.name = "play"
             
             addChild(button)

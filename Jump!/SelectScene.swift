@@ -115,7 +115,7 @@ class SelectScene: SKScene {
             super.init()
             
             let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
-            button.fillColor = SKColor.greenColor()
+            button.fillColor = SKColor(red: 0.25, green: 0.99, blue: 0.27, alpha:1.0)
             
             addChild(button)
         }
@@ -131,7 +131,7 @@ class SelectScene: SKScene {
             super.init()
             
             let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
-            button.fillColor = SKColor.blueColor()
+            button.fillColor = SKColor(red:0.09, green:0.51, blue:0.98, alpha:1)
             
             addChild(button)
         }

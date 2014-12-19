@@ -12,7 +12,7 @@ import Foundation
 
 class PlayerNode: SKNode {
     
-    let player = SKSpriteNode(imageNamed: "Circle.png")
+    let player = SKShapeNode(circleOfRadius: 15)
     private var height :CGFloat = 0
     private var dif = 0
 
@@ -30,8 +30,9 @@ class PlayerNode: SKNode {
     private func initPhysicsBody() {
         
         player.name = "Player"
+        player.fillColor = SKColor.blackColor()
         player.zRotation = CGFloat(M_PI)
-        player.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "Circle.png"), size: player.size)
+        player.physicsBody = SKPhysicsBody(circleOfRadius:15)
         player.physicsBody?.dynamic = false
         player.physicsBody?.linearDamping = 0.0
         player.physicsBody?.allowsRotation = false
@@ -42,26 +43,27 @@ class PlayerNode: SKNode {
         player.physicsBody?.collisionBitMask = SideCategory
         player.physicsBody?.restitution = 0.0
         player.physicsBody?.friction = 2.0
+        player.physicsBody?.mass = 0.038
         self.addChild(player)
     }
     
     internal func jump(location: CGPoint, right: Bool) {
-        player.physicsBody!.velocity = CGVectorMake(0,0)
+        
         
         switch dif {
             
-        case 0: right ?
-            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-3), CGFloat(18))) :
-            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(3), CGFloat(18))); break
-        case 1: right ?
-            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-4), CGFloat(26))) :
-            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(4), CGFloat(26))); break
-        case 2: right ?
-            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-3), CGFloat(18))) :
-            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(3), CGFloat(18))); break
-        default: right ?
-            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(-3), CGFloat(18))) :
-            player.physicsBody!.applyImpulse(CGVectorMake(CGFloat(3), CGFloat(18)))
+        case 0: player.physicsBody!.velocity = right ?
+            CGVectorMake(-50, 450) :
+            CGVectorMake(50, 450); break
+        case 1: player.physicsBody!.velocity = right ?
+            CGVectorMake(-70, 650) :
+            CGVectorMake(70, 650); break
+        case 2: player.physicsBody!.velocity = right ?
+            CGVectorMake(-60, 550) :
+            CGVectorMake(60, 550); break
+        default: player.physicsBody!.velocity = right ?
+            CGVectorMake(-50, 450) :
+            CGVectorMake(50, 450); break
         }
     }
     
@@ -79,10 +81,14 @@ class PlayerNode: SKNode {
     }
     
     internal func getHeight() -> CGFloat {
-        return player.position.y*0.1 + UIScreen.mainScreen().bounds.height/2*0.75
+        return player.position.y + UIScreen.mainScreen().bounds.height/2*0.75
     }
     
     internal func getVelocity() -> CGFloat {
         return player.physicsBody!.velocity.dy
+    }
+    
+    internal func over() {
+        player.fillColor = SKColor.redColor()
     }
 }

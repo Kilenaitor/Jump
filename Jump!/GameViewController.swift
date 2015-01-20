@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import iAd
+import GameKit
 
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
@@ -28,8 +29,10 @@ extension SKNode {
 
 var adBannerView: ADBannerView!
 
-class GameViewController: UIViewController, ADBannerViewDelegate {
+class GameViewController: UIViewController, ADBannerViewDelegate, GKGameCenterControllerDelegate {
     
+    var leaderboardIdentifier: String = ""
+    var gameCenterEnabled: Bool = false
     
     func loadAds() {
         adBannerView = ADBannerView(frame: CGRectZero)
@@ -37,25 +40,66 @@ class GameViewController: UIViewController, ADBannerViewDelegate {
         adBannerView.delegate = self
         view.addSubview(adBannerView)
     }
+    
+    func authenticate() {
+        
+        var player = GKLocalPlayer.localPlayer()
+        player.authenticateHandler = {(var gameCenterVC: UIViewController!, var gameCenterError: NSError!) -> Void in
+            
+            if ((gameCenterVC) != nil) {
+                self.presentViewController(gameCenterVC, animated: true, completion: nil)
+            } else {
+                
+                if player.authenticated
+                {
+                    player.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (var leaderboardIdentifier: String!, var error: NSError!) -> Void in
+                        if((error) != nil) {
+                            NSLog("\(error.localizedDescription)")
+                        } else {
+                            self.leaderboardIdentifier = leaderboardIdentifier
+                        }
+                   })
+                } else {
+                    
+                    println("not able to authenticate fail")
+                    self.gameCenterEnabled = false
+                    
+                    if (gameCenterError != nil) {
+                        println("\(gameCenterError.description)")
+                    }
+                    else {
+                        println( "error is nil")
+                    }
+                }
+            }
+        }
+    }
+    
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!)
+    {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let scene = StartScene(size: view.frame.size)
-            // Configure the view.
-            let skView = self.view as SKView
-            skView.showsFPS = false
-            skView.showsNodeCount = false
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            skView.presentScene(scene)
+        // Configure the view.
+        let skView = self.view as SKView
+        skView.showsFPS = false
+        skView.showsNodeCount = false
         
-            loadAds()
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
+        
+        skView.presentScene(scene)
+    
+        loadAds()
+    
+        authenticate()
     }
 
     override func shouldAutorotate() -> Bool {

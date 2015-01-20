@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		430BE5491A3A9A0B006CDF38 /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */; };
-		430BE54B1A3A9C23006CDF38 /* Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 430BE54A1A3A9C23006CDF38 /* Circle.png */; };
 		430BE54D1A3BAD8B006CDF38 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430BE54C1A3BAD8B006CDF38 /* GameOver.swift */; };
 		437C10BE1A3EDDCB003608C9 /* SelectScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437C10BD1A3EDDCB003608C9 /* SelectScene.swift */; };
 		437C10C01A3EE55B003608C9 /* MedGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437C10BF1A3EE55B003608C9 /* MedGameScene.swift */; };
@@ -40,7 +39,6 @@
 
 /* Begin PBXFileReference section */
 		430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
-		430BE54A1A3A9C23006CDF38 /* Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle.png; sourceTree = SOURCE_ROOT; };
 		430BE54C1A3BAD8B006CDF38 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		437C10BD1A3EDDCB003608C9 /* SelectScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectScene.swift; sourceTree = "<group>"; };
 		437C10BF1A3EE55B003608C9 /* MedGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedGameScene.swift; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 				430BE5481A3A9A0B006CDF38 /* PlayerNode.swift */,
 				430BE54C1A3BAD8B006CDF38 /* GameOver.swift */,
 				43EE4EC81A3AC282004A0188 /* Geometry.swift */,
-				430BE54A1A3A9C23006CDF38 /* Circle.png */,
 				43B9A1901A3A85050044B391 /* GameViewController.swift */,
 				43EE4ECE1A3B025E004A0188 /* PhysicsCategories.swift */,
 				43B9A1921A3A85050044B391 /* Main.storyboard */,
@@ -233,7 +230,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				43B9A1991A3A85050044B391 /* LaunchScreen.xib in Resources */,
-				430BE54B1A3A9C23006CDF38 /* Circle.png in Resources */,
 				43B9A1961A3A85050044B391 /* Images.xcassets in Resources */,
 				43B9A18D1A3A85050044B391 /* GameScene.sks in Resources */,
 				43B9A1941A3A85050044B391 /* Main.storyboard in Resources */,

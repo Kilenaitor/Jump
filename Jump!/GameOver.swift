@@ -7,22 +7,31 @@
 //
 
 import SpriteKit
+import GameKit
 
 class GameOver: SKScene {
     
     var diff = 0
+    var gameCenter: String = ""
+    var sub: Int = 0
     
     class func scene(size:CGSize) -> StartScene {
         return StartScene(size: size)
     }
     
-    init(size: CGSize, scoreNum: Int, level: Int) {
+    init(size: CGSize, scoreNum: Int, level: Int, gc: String) {
         
         super.init(size: size)
         
+        gameCenter = gc
+        
         diff = level
         
+        sub = scoreNum
+        
         backgroundColor = SKColor.whiteColor()
+        
+        reportScore(scoreNum)
         
         var prevHigh = 0
         if(NSUserDefaults.standardUserDefaults().integerForKey("HighScore\(level)") != 0) {
@@ -39,7 +48,7 @@ class GameOver: SKScene {
         over.fontColor = SKColor.redColor()
         over.fontSize = 45
         over.text = "Game Over"
-        over.position = CGPointMake(frame.size.width/2, frame.size.height*2/3)
+        over.position = CGPointMake(frame.size.width/2, frame.size.height - 100)
         
         addChild(over)
         
@@ -47,7 +56,7 @@ class GameOver: SKScene {
         score.fontColor = SKColor.blackColor()
         score.fontSize = 32
         score.text = "Score: \(scoreNum)"
-        score.position = CGPointMake(frame.size.width/2, frame.size.height*2/3 - 50)
+        score.position = CGPointMake(frame.size.width/2, frame.size.height - 150)
         
         addChild(score)
         
@@ -55,26 +64,26 @@ class GameOver: SKScene {
         highscore.fontColor = SKColor.blackColor()
         highscore.fontSize = 32
         highscore.text = "High Score: \(prevHigh)"
-        highscore.position = CGPointMake(frame.size.width/2, frame.size.height*2/3 - 100)
+        highscore.position = CGPointMake(frame.size.width/2, frame.size.height - 200)
         
         addChild(highscore)
         
         let play = playButton()
-        play.position = CGPointMake(frame.size.width/2, frame.size.height/2 - 50)
+        play.position = CGPointMake(frame.size.width/2, frame.size.height - 350)
         play.zPosition = 1
         play.name = "play"
         
         let text = SKLabelNode(fontNamed: "Helvetica")
         text.fontSize = 32
         text.fontColor = SKColor.whiteColor()
-        text.position = CGPointMake(frame.size.width/2, frame.size.height/2 - 50)
+        text.position = CGPointMake(frame.size.width/2, frame.size.height - 350)
         text.zPosition = 2
         text.text = "Play Again"
         text.name = "play"
         
-        let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
-        button.position = CGPointMake(frame.size.width/2, frame.size.height/2 - 125)
-        button.fillColor = SKColor.blueColor()
+        let button = SKShapeNode(path: CGPathCreateWithRect(CGRectMake(-100, -15, 200, 50), nil))
+        button.fillColor = SKColor(red:0.09, green:0.51, blue:0.98, alpha:1)
+        button.position = CGPointMake(frame.size.width/2, frame.size.height - 425)
         button.name = "home"
         
         let home = SKLabelNode(fontNamed: "Helvetica")
@@ -89,6 +98,17 @@ class GameOver: SKScene {
         addChild(text)
         addChild(button)
         addChild(home)
+    }
+    
+    func reportScore(score: Int) {
+        var score = GKScore(leaderboardIdentifier: gameCenter)
+        score.value = Int64(sub)
+        
+        GKScore.reportScores([score], {(error : NSError!) -> Void in
+            if error != nil {
+                NSLog(error.localizedDescription)
+            }
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -138,8 +158,8 @@ class GameOver: SKScene {
         override init() {
             super.init()
             
-            let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
-            button.fillColor = SKColor.greenColor()
+            let button = SKShapeNode(path: CGPathCreateWithRect(CGRectMake(-100, -15, 200, 50), nil))
+            button.fillColor = SKColor(red:0.144, green:0.8, blue:0.381, alpha:1)
             button.name = "start"
             
             addChild(button)

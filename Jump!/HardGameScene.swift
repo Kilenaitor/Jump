@@ -19,7 +19,7 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
     private var firsttap = true
     private var finished = false
     private var scoreNum = 0
-    private let playerNode: PlayerNode = PlayerNode(diff: 1)
+    private let playerNode :PlayerNode = PlayerNode(diff: 1)
     private let floor: WallNode = WallNode()
     private let left: SideNode = SideNode()
     private let right: SideNode = SideNode()
@@ -121,7 +121,7 @@ class HardGameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver() {
         playerNode.over()
-        let nextLevel = GameOver(size: frame.size, scoreNum: scoreNum, level: 2)
+        let nextLevel = GameOver(size: frame.size, scoreNum: scoreNum, level: 2, gc: "hard")
         view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(1))
     }
     

@@ -14,9 +14,20 @@ class SelectScene: SKScene {
         return SelectScene(size: size)
     }
     
+    var unlock_medium: Bool = false
+    var unlock_hard: Bool = false
+    
     override init(size: CGSize) {
         
         super.init(size: size)
+        
+        if( NSUserDefaults.standardUserDefaults().integerForKey("HighScore0") >= 50 ) {
+            unlock_medium = true
+        }
+        
+        if( NSUserDefaults.standardUserDefaults().integerForKey("HighScore1") >= 30 ) {
+            unlock_hard = true
+        }
         
         backgroundColor = SKColor.whiteColor()
         
@@ -45,6 +56,9 @@ class SelectScene: SKScene {
         addChild(text)
         
         let medium = playMedButton()
+        if(!unlock_medium) {
+            medium.getButton().fillColor = SKColor(red:0.892, green:0.888, blue:0.884, alpha:1)
+        }
         medium.position = CGPointMake(frame.size.width/2, frame.size.height/2 - 75)
         medium.zPosition = 1
         medium.name = "med"
@@ -61,6 +75,9 @@ class SelectScene: SKScene {
         addChild(text2)
         
         let hard = playHardButton()
+        if(!unlock_hard) {
+            hard.getButton().fillColor = SKColor(red:0.892, green:0.888, blue:0.884, alpha:1)
+        }
         hard.position = CGPointMake(frame.size.width/2, frame.size.height/2-150)
         hard.zPosition = 1
         hard.name = "hard"
@@ -90,17 +107,28 @@ class SelectScene: SKScene {
             
             let location = touch.locationInNode(self)
             let node = nodeAtPoint(location)
+            
             if node.name == "easy" {
                 let nextLevel = EasyGameScene(size: frame.size)
                 view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
             }
             if node.name == "med" {
-                let nextLevel = MedGameScene(size: frame.size)
-                view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
+                if(!unlock_medium) {
+                    var alert = UIAlertView(title: "Whoops", message: "You have to score at least 50 in Easy before you can play Medium", delegate: self, cancelButtonTitle: "Okay")
+                    alert.show()
+                } else {
+                    let nextLevel = MedGameScene(size: frame.size)
+                    view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
+                }
             }
             if node.name == "hard" {
-                let nextLevel = HardGameScene(size: frame.size)
-                view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
+                if(!unlock_hard) {
+                    var alert = UIAlertView(title: "Whoops", message: "You have to score at least 30 in Medium before you can play Hard", delegate: self, cancelButtonTitle: "Okay")
+                    alert.show()
+                } else {
+                    let nextLevel = HardGameScene(size: frame.size)
+                    view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
+                }
             }
         }
     }
@@ -111,13 +139,19 @@ class SelectScene: SKScene {
     
     class playButton: SKNode {
         
+        let button = SKShapeNode(path: CGPathCreateWithRect(CGRectMake(-100, -15, 200, 50), nil))
+        
         override init() {
             super.init()
             
-            let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
-            button.fillColor = SKColor(red: 0.25, green: 0.99, blue: 0.27, alpha:1.0)
+            button.fillColor = SKColor(red:0.144, green:0.8, blue:0.381, alpha:1)
+            button.name="easy"
             
             addChild(button)
+        }
+        
+        func getButton() -> SKShapeNode {
+            return button;
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -127,13 +161,19 @@ class SelectScene: SKScene {
     
     class playMedButton: SKNode {
         
+        let button = SKShapeNode(path: CGPathCreateWithRect(CGRectMake(-100, -15, 200, 50), nil))
+        
         override init() {
+            
             super.init()
             
-            let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
             button.fillColor = SKColor(red:0.09, green:0.51, blue:0.98, alpha:1)
-            
+            button.name="med"
             addChild(button)
+        }
+        
+        func getButton() -> SKShapeNode {
+            return button;
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -143,13 +183,18 @@ class SelectScene: SKScene {
     
     class playHardButton: SKNode {
         
+        let button = SKShapeNode(path: CGPathCreateWithRect(CGRectMake(-100, -15, 200, 50), nil))
+        
         override init() {
             super.init()
             
-            let button = SKShapeNode(path: CGPathCreateWithRoundedRect(CGRectMake(-100, -15, 200, 50), 10, 10, nil))
-            button.fillColor = SKColor.redColor()
-            
+            button.fillColor = SKColor(red:0.98, green:0.26, blue:0.29, alpha:1)
+            button.name="hard"
             addChild(button)
+        }
+        
+        func getButton() -> SKShapeNode {
+            return button;
         }
         
         required init?(coder aDecoder: NSCoder) {

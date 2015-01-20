@@ -12,7 +12,7 @@ import Foundation
 
 class PlayerNode: SKNode {
     
-    let player = SKShapeNode(circleOfRadius: 15)
+    private var player :SKShapeNode = SKShapeNode(circleOfRadius: 14)
     private var height :CGFloat = 0
     private var dif = 0
 
@@ -32,7 +32,7 @@ class PlayerNode: SKNode {
         player.name = "Player"
         player.fillColor = SKColor.blackColor()
         player.zRotation = CGFloat(M_PI)
-        player.physicsBody = SKPhysicsBody(circleOfRadius:15)
+        player.physicsBody = SKPhysicsBody(circleOfRadius:12)
         player.physicsBody?.dynamic = false
         player.physicsBody?.linearDamping = 0.0
         player.physicsBody?.allowsRotation = false

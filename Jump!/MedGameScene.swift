@@ -19,7 +19,7 @@ class MedGameScene: SKScene, SKPhysicsContactDelegate {
     private var firsttap = true
     private var finished = false
     private var scoreNum = 0
-    private let playerNode: PlayerNode = PlayerNode(diff: 1)
+    private let playerNode :PlayerNode = PlayerNode(diff: 1)
     private let floor: WallNode = WallNode()
     private let left: SideNode = SideNode()
     private let right: SideNode = SideNode()
@@ -52,10 +52,11 @@ class MedGameScene: SKScene, SKPhysicsContactDelegate {
         score.position = CGPointMake(frame.size.width - 10, frame.size.height - 10)
         
         addChild(score)
-        
+
         playerNode.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame) * 0.75)
         
         world.addChild(playerNode)
+        
         newHeight = CGRectGetMidY(frame)
         startHeight = CGRectGetMidY(frame)
         oldy = CGRectGetMidY(frame) * 0.75 - 25
@@ -85,8 +86,9 @@ class MedGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(currentTime: NSTimeInterval) {
+        
         if -playerNode.getHeight() + newHeight < world.position.y {
-            world.position = CGPointMake(world.position.x, -playerNode.getHeight() + newHeight)
+            world.position.y = -playerNode.getHeight() + newHeight
         }
         
         if(oldy - playerNode.getHeight() < 500) {
@@ -119,7 +121,7 @@ class MedGameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver() {
         playerNode.over()
-        let nextLevel = GameOver(size: frame.size, scoreNum: scoreNum, level: 1)
+        let nextLevel = GameOver(size: frame.size, scoreNum: scoreNum, level: 1, gc: "medium")
         view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(1))
     }
     

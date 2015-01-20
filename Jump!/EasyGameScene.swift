@@ -119,7 +119,7 @@ class EasyGameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver() {
         playerNode.over()
-        let nextLevel = GameOver(size: frame.size, scoreNum: scoreNum, level: 0)
+        let nextLevel = GameOver(size: frame.size, scoreNum: scoreNum, level: 0, gc: "easy")
         view!.presentScene(nextLevel, transition:SKTransition.fadeWithDuration(0.5))
     }
     
